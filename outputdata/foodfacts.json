@@ -1,37 +1,37 @@
 [{
     "country": "Netherlands",
-    "sugar": 184,
-    "salt": 42
+    "sugar": 199.5,
+    "salt": 44.000400000000006
 }, {
     "country": "Canada",
-    "sugar": 721,
-    "salt": 18
+    "sugar": 731.4200000000001,
+    "salt": 27.470923999999997
 }, {
     "country": "United Kingdom",
-    "sugar": 6429,
-    "salt": 147
+    "sugar": 6835.307000000003,
+    "salt": 251.9029025999999
 }, {
     "country": "United States",
-    "sugar": 16260,
-    "salt": 1255
+    "sugar": 16595.249000000003,
+    "salt": 1603.7165899999989
 }, {
     "country": "Australia",
-    "sugar": 1889,
-    "salt": 131
+    "sugar": 1926.7999999999995,
+    "salt": 169.58522600000012
 }, {
     "country": "France",
-    "sugar": 50805,
-    "salt": 3080
+    "sugar": 52489.41649999991,
+    "salt": 4425.237375159998
 }, {
     "country": "Germany",
-    "sugar": 2896,
-    "salt": 497
+    "sugar": 3403.6279999999983,
+    "salt": 583.5358457999995
 }, {
     "country": "Spain",
-    "sugar": 2628,
-    "salt": 193
+    "sugar": 2758.1900000000014,
+    "salt": 257.79398262000007
 }, {
     "country": "South Africa",
-    "sugar": 3,
-    "salt": 0
+    "sugar": 3.52,
+    "salt": 0.1561
 }]

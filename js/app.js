@@ -1,7 +1,11 @@
 const fs = require('fs');
 const rl = require('readline');
 
-// var csvfile = fs.readFileSync('FoodFacts.csv').toString();
+module.exports = ((year) => {
+  if(isNaN(year) || typeof year !== 'number') {
+    throw Error('Not a number');
+  }
+  if(!isNaN(year)) {
 let jsonArray = [];
 let jsonArray1 = [];
 
@@ -47,30 +51,55 @@ rd.on('line', (line) => {
         carboIndex = titles.indexOf('carbohydrates_100g');
         fatIndex = titles.indexOf('fat_100g');
         lineTitle = lineTitle + 1;
-    } else {
+    }
     let values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
     let countryCheckforNorthEurope = northEurope.includes(values[countryIndex]);
     let countryCheckforCentralEurope = centralEurope.includes(values[countryIndex]);
     let countryCheckforSouthEurope = southEurope.includes(values[countryIndex]);
-    // let countryCheckSnS = snscountry.includes(values[countryIndex]);
-    if (snscountry.includes(values[countryIndex])) {
-        let salt = values[saltIndex];
-        let sugar = values[sugarIndex];
 
-        if (salt === '') {
-            salt = 0;
+    if (values[countryIndex].includes(',')) {
+      // console.log(values[countryIndex]);
+      let countries = values[countryIndex].split(',');
+      for (let i = 0; i < countries.length; i = i + 1) {
+        if(snscountry.includes(countries[i])) {
+          // console.log(values[countryIndex], values[saltIndex]);
+          // let salt = Number(values[saltIndex]);
+          // let sugar = Number(values[sugarIndex]);
+
+          // if (!salt) {
+          //     salt = 0;
+          // }
+          // if (!sugar) {
+          //     sugar = 0;
+          // }
+
+          let snscountryIndex = snscountry.indexOf(countries[i]);
+          // console.log(values[saltIndex]);
+          // console.log('salt',salt);
+          // console.log('sugar',sugar);
+          // console.log('country name',values[countryIndex]);
+          saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
+          sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
         }
-        if (sugar === '') {
-            sugar = 0;
-        }
+      }
+    }else if (snscountry.includes(values[countryIndex])) {
+        // let salt = Number(values[saltIndex]);
+        // let sugar = Number(values[sugarIndex]);
+
+        // if (!salt) {
+        //     salt = 0;
+        // }
+        // if (!sugar) {
+        //     sugar = 0;
+        // }
 
         let snscountryIndex = snscountry.indexOf(values[countryIndex]);
         // console.log(values[saltIndex]);
         // console.log('salt',salt);
         // console.log('sugar',sugar);
         // console.log('country name',values[countryIndex]);
-        saltArr[snscountryIndex] = saltArr[snscountryIndex] + parseInt(salt, 10);
-        sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + parseInt(sugar, 10);
+        saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
+        sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
     }
 
     if (countryCheckforNorthEurope || countryCheckforCentralEurope || countryCheckforSouthEurope) {
@@ -89,26 +118,25 @@ rd.on('line', (line) => {
         }
         if (countryCheckforNorthEurope) {
             // console.log('fat',fat);
-            fatNorthEurope = fatNorthEurope + parseInt(fat, 10);
-            proteinNorthEurope = proteinNorthEurope + parseInt(protein, 10);
-            carboNorthEurope = carboNorthEurope + parseInt(carbo, 10);
+            fatNorthEurope = fatNorthEurope + parseFloat(fat, 10);
+            proteinNorthEurope = proteinNorthEurope + parseFloat(protein, 10);
+            carboNorthEurope = carboNorthEurope + parseFloat(carbo, 10);
             countryCheckforNorthEurope = false;
         }
         if (countryCheckforCentralEurope) {
             // console.log('fat',fat);
-            fatCentralEurope = fatCentralEurope + parseInt(fat, 10);
-            proteinCentralEurope = proteinCentralEurope + parseInt(protein, 10);
-            carboCentralEurope = carboCentralEurope + parseInt(carbo, 10);
+            fatCentralEurope = fatCentralEurope + parseFloat(fat, 10);
+            proteinCentralEurope = proteinCentralEurope + parseFloat(protein, 10);
+            carboCentralEurope = carboCentralEurope + parseFloat(carbo, 10);
             countryCheckforCentralEurope = false;
         }
         if (countryCheckforSouthEurope) {
-            fatSouthEurope = fatSouthEurope + parseInt(fat, 10);
-            proteinSouthEurope = proteinSouthEurope + parseInt(protein, 10);
-            carboSouthEurope = carboSouthEurope + parseInt(carbo, 10);
+            fatSouthEurope = fatSouthEurope + parseFloat(fat, 10);
+            proteinSouthEurope = proteinSouthEurope + parseFloat(protein, 10);
+            carboSouthEurope = carboSouthEurope + parseFloat(carbo, 10);
             countryCheckforSouthEurope = false;
         }
     }
-  }
 });
 
 rd.on('close', () => {
@@ -145,3 +173,8 @@ rd.on('close', () => {
     fs.writeFileSync('../outputdata/foodfacts.json', JSON.stringify(jsonArray));
     fs.writeFileSync('../outputdata/foodfacts1.json', JSON.stringify(jsonArray1));
 });
+
+  return 'JSON written successfully';
+}
+return '';
+})(2001);
