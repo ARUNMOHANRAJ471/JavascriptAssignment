@@ -2,144 +2,143 @@ const fs = require('fs');
 const rl = require('readline');
 
 // var csvfile = fs.readFileSync('FoodFacts.csv').toString();
-var jsonArray = [];
-var jsonArray1 = [];
+let jsonArray = [];
+let jsonArray1 = [];
 
 
-var snscountry = ['Netherlands', 'Canada', 'United Kingdom', 'United States', 'Australia', 'France', 'Germany', 'Spain', 'South Africa'];
-var northEurope = ['United Kingdom', 'Denmark', 'Sweden', 'Norway'];
-var centralEurope = ['France', 'Belgium', 'Germany', 'Switzerland', 'Netherlands'];
-var southEurope = ['Portugal', 'Greece', 'Italy', 'Spain', 'Croatia', 'Albania'];
+let snscountry = ['Netherlands', 'Canada', 'United Kingdom', 'United States', 'Australia',
+                  'France', 'Germany', 'Spain', 'South Africa'];
+let northEurope = ['United Kingdom', 'Denmark', 'Sweden', 'Norway'];
+let centralEurope = ['France', 'Belgium', 'Germany', 'Switzerland', 'Netherlands'];
+let southEurope = ['Portugal', 'Greece', 'Italy', 'Spain', 'Croatia', 'Albania'];
 
 
-var saltArr = new Uint8Array(9);
-var sugarArr = new Uint8Array(9);
-var fatNorthEurope = 0;
-var fatCentralEurope = 0;
-var fatSouthEurope = 0;
-var proteinNorthEurope = 0;
-var proteinCentralEurope = 0;
-var proteinSouthEurope = 0;
-var carboNorthEurope = 0;
-var carboCentralEurope = 0;
-var carboSouthEurope = 0;
+let saltArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let sugarArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let fatNorthEurope = 0;
+let fatCentralEurope = 0;
+let fatSouthEurope = 0;
+let proteinNorthEurope = 0;
+let proteinCentralEurope = 0;
+let proteinSouthEurope = 0;
+let carboNorthEurope = 0;
+let carboCentralEurope = 0;
+let carboSouthEurope = 0;
 let lineTitle = 0;
-var titles;
-var countryIndex;
-var saltIndex;
-var sugarIndex;
-var protienIndex;
-var carboIndex;
-var fatIndex;
+let titles;
+let countryIndex;
+let saltIndex;
+let sugarIndex;
+let protienIndex;
+let carboIndex;
+let fatIndex;
 let rd = rl.createInterface({
     input: fs.createReadStream('../inputdata/FoodFacts.csv'),
     terminal: false
 });
 
 rd.on('line', (line) => {
-
-    if (lineTitle == 0) {
-        titles = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-        countryIndex = titles.indexOf("countries_en");
-        saltIndex = titles.indexOf("salt_100g");
-        sugarIndex = titles.indexOf("sugars_100g");
-        protienIndex = titles.indexOf("proteins_100g");
-        carboIndex = titles.indexOf("carbohydrates_100g");
-        fatIndex = titles.indexOf("fat_100g");
+    if (lineTitle === 0) {
+        titles = line.split(',');
+        countryIndex = titles.indexOf('countries_en');
+        saltIndex = titles.indexOf('salt_100g');
+        sugarIndex = titles.indexOf('sugars_100g');
+        protienIndex = titles.indexOf('proteins_100g');
+        carboIndex = titles.indexOf('carbohydrates_100g');
+        fatIndex = titles.indexOf('fat_100g');
         lineTitle = lineTitle + 1;
-    }
-    var values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-    var countryCheckforNorthEurope = northEurope.includes(values[countryIndex]);
-    var countryCheckforCentralEurope = centralEurope.includes(values[countryIndex]);
-    var countryCheckforSouthEurope = southEurope.includes(values[countryIndex]);
-
+    } else {
+    let values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+    let countryCheckforNorthEurope = northEurope.includes(values[countryIndex]);
+    let countryCheckforCentralEurope = centralEurope.includes(values[countryIndex]);
+    let countryCheckforSouthEurope = southEurope.includes(values[countryIndex]);
+    // let countryCheckSnS = snscountry.includes(values[countryIndex]);
     if (snscountry.includes(values[countryIndex])) {
-        var salt = values[saltIndex];
-        var sugar = values[sugarIndex];
+        let salt = values[saltIndex];
+        let sugar = values[sugarIndex];
 
-        if (salt == "" || salt == undefined || salt == NaN) {
+        if (salt === '') {
             salt = 0;
         }
-        if (sugar == "") {
+        if (sugar === '') {
             sugar = 0;
         }
 
-        var snscountryIndex = snscountry.indexOf(values[countryIndex]);
+        let snscountryIndex = snscountry.indexOf(values[countryIndex]);
         // console.log(values[saltIndex]);
         // console.log('salt',salt);
         // console.log('sugar',sugar);
-
-
-
-        saltArr[snscountryIndex] += parseInt(salt);
-        sugarArr[snscountryIndex] += parseInt(sugar);
-
+        // console.log('country name',values[countryIndex]);
+        saltArr[snscountryIndex] = saltArr[snscountryIndex] + parseInt(salt, 10);
+        sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + parseInt(sugar, 10);
     }
 
     if (countryCheckforNorthEurope || countryCheckforCentralEurope || countryCheckforSouthEurope) {
-        var fat = values[fatIndex];
-        var protein = values[protienIndex];
-        var carbo = values[carboIndex];
+        let fat = values[fatIndex];
+        let protein = values[protienIndex];
+        let carbo = values[carboIndex];
         // console.log(fat,'fat');
-        if (fat == "")
+        if (fat === '') {
             fat = 0;
-        if (protein == "")
+        }
+        if (protein === '') {
             protein = 0;
-        if (carbo == "")
+        }
+        if (carbo === '') {
             carbo = 0;
+        }
         if (countryCheckforNorthEurope) {
             // console.log('fat',fat);
-            fatNorthEurope += parseInt(fat);
-            proteinNorthEurope += fat = parseInt(protein);
-            carboNorthEurope += parseInt(carbo);
+            fatNorthEurope = fatNorthEurope + parseInt(fat, 10);
+            proteinNorthEurope = proteinNorthEurope + parseInt(protein, 10);
+            carboNorthEurope = carboNorthEurope + parseInt(carbo, 10);
             countryCheckforNorthEurope = false;
         }
         if (countryCheckforCentralEurope) {
             // console.log('fat',fat);
-            fatCentralEurope += parseInt(fat);
-            proteinCentralEurope += parseInt(protein);
-            carboCentralEurope += parseInt(carbo);
+            fatCentralEurope = fatCentralEurope + parseInt(fat, 10);
+            proteinCentralEurope = proteinCentralEurope + parseInt(protein, 10);
+            carboCentralEurope = carboCentralEurope + parseInt(carbo, 10);
             countryCheckforCentralEurope = false;
         }
         if (countryCheckforSouthEurope) {
-            fatSouthEurope += parseInt(fat);
-            proteinSouthEurope += parseInt(protein);
-            carboSouthEurope += parseInt(carbo);
+            fatSouthEurope = fatSouthEurope + parseInt(fat, 10);
+            proteinSouthEurope = proteinSouthEurope + parseInt(protein, 10);
+            carboSouthEurope = carboSouthEurope + parseInt(carbo, 10);
             countryCheckforSouthEurope = false;
         }
     }
+  }
 });
 
-
-
 rd.on('close', () => {
-    for (var i = 0; i < snscountry.length; i++) {
-        var obj = {};
-        obj["country"] = snscountry[i];
-        obj["sugar"] = sugarArr[i];
-        obj["salt"] = saltArr[i];
+    for (let i = 0; i < snscountry.length; i = i + 1) {
+        let obj = {};
+        obj.country = snscountry[i];
+        obj.sugar = sugarArr[i];
+        obj.salt = saltArr[i];
         jsonArray.push(obj);
     }
 
-    var objNorthEurope = {
-        region: "North Europe",
+    let objNorthEurope = {
+        region: 'North Europe',
         fat: fatNorthEurope,
         protein: proteinNorthEurope,
         carbohydrates: carboNorthEurope
-    }
+    };
 
-    var objCentralEurope = {
-        region: "Central Europe",
+    let objCentralEurope = {
+        region: 'Central Europe',
         fat: fatCentralEurope,
         protein: proteinCentralEurope,
         carbohydrates: carboCentralEurope
-    }
-    var objSouthEurope = {
-        region: "South Europe",
+    };
+    let objSouthEurope = {
+        region: 'South Europe',
         fat: fatSouthEurope,
         protein: proteinSouthEurope,
         carbohydrates: carboSouthEurope
-    }
+    };
     jsonArray1.push(objNorthEurope);
     jsonArray1.push(objCentralEurope);
     jsonArray1.push(objSouthEurope);

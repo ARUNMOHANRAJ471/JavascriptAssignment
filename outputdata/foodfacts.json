@@ -1,1 +1,37 @@
-[{"country":"Netherlands","sugar":184,"salt":42},{"country":"Canada","sugar":209,"salt":18},{"country":"United Kingdom","sugar":29,"salt":147},{"country":"United States","sugar":132,"salt":231},{"country":"Australia","sugar":97,"salt":131},{"country":"France","sugar":117,"salt":164},{"country":"Germany","sugar":80,"salt":241},{"country":"Spain","sugar":68,"salt":193},{"country":"South Africa","sugar":3,"salt":0}]
+[{
+    "country": "Netherlands",
+    "sugar": 184,
+    "salt": 42
+}, {
+    "country": "Canada",
+    "sugar": 721,
+    "salt": 18
+}, {
+    "country": "United Kingdom",
+    "sugar": 6429,
+    "salt": 147
+}, {
+    "country": "United States",
+    "sugar": 16260,
+    "salt": 1255
+}, {
+    "country": "Australia",
+    "sugar": 1889,
+    "salt": 131
+}, {
+    "country": "France",
+    "sugar": 50805,
+    "salt": 3080
+}, {
+    "country": "Germany",
+    "sugar": 2896,
+    "salt": 497
+}, {
+    "country": "Spain",
+    "sugar": 2628,
+    "salt": 193
+}, {
+    "country": "South Africa",
+    "sugar": 3,
+    "salt": 0
+}]
