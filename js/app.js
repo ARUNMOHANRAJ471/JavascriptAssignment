@@ -57,83 +57,91 @@ rd.on('line', (line) => {
     let countryCheckforCentralEurope = centralEurope.includes(values[countryIndex]);
     let countryCheckforSouthEurope = southEurope.includes(values[countryIndex]);
 
-    if (values[countryIndex].includes(',')) {
-      // console.log(values[countryIndex]);
-      let countries = values[countryIndex].split(',');
-      for (let i = 0; i < countries.length; i = i + 1) {
-        if(snscountry.includes(countries[i])) {
-          // console.log(values[countryIndex], values[saltIndex]);
-          // let salt = Number(values[saltIndex]);
-          // let sugar = Number(values[sugarIndex]);
-
-          // if (!salt) {
-          //     salt = 0;
-          // }
-          // if (!sugar) {
-          //     sugar = 0;
-          // }
-
-          let snscountryIndex = snscountry.indexOf(countries[i]);
-          // console.log(values[saltIndex]);
-          // console.log('salt',salt);
-          // console.log('sugar',sugar);
-          // console.log('country name',values[countryIndex]);
-          saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
-          sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
+    function cntrindex(cntr) {
+      let ind = -1;
+      if(cntr) {
+        for(let i = 0; i < snscountry.length; i = i + 1) {
+          if(cntr.includes(snscountry[i])) {
+            ind = i;
+          }
         }
       }
-    }else if (snscountry.includes(values[countryIndex])) {
-        // let salt = Number(values[saltIndex]);
-        // let sugar = Number(values[sugarIndex]);
-
-        // if (!salt) {
-        //     salt = 0;
-        // }
-        // if (!sugar) {
-        //     sugar = 0;
-        // }
-
-        let snscountryIndex = snscountry.indexOf(values[countryIndex]);
-        // console.log(values[saltIndex]);
-        // console.log('salt',salt);
-        // console.log('sugar',sugar);
-        // console.log('country name',values[countryIndex]);
-        saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
-        sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
+      return ind;
     }
+    if (values[countryIndex].includes(',')) {
+      let countries = values[countryIndex].split(',');
+      for (let i = 0; i < countries.length; i = i + 1) {
+          let salt = Number(values[saltIndex]);
+          let sugar = Number(values[sugarIndex]);
+
+          if (!salt) {
+              salt = 0;
+          }
+          if (!sugar) {
+              sugar = 0;
+          }
+
+          let snscountryIndex = cntrindex(countries[i]);
+          saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
+          sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
+          let fat = Number(values[fatIndex]);
+          let protein = Number(values[protienIndex]);
+          let carbo = values[carboIndex];
+          if (northEurope.includes(countries[i])) {
+            fatNorthEurope = fatNorthEurope + Number(fat);
+            proteinNorthEurope = proteinNorthEurope + Number(protein);
+            carboNorthEurope = carboNorthEurope + Number(carbo);
+          }
+          if (centralEurope.includes(countries[i])) {
+            fatCentralEurope = fatCentralEurope + Number(fat);
+            proteinCentralEurope = proteinCentralEurope + Number(protein);
+            carboCentralEurope = carboCentralEurope + Number(carbo);
+        }
+          if (southEurope.includes(countries[i])) {
+            fatSouthEurope = fatSouthEurope + Number(fat);
+            proteinSouthEurope = proteinSouthEurope + Number(protein);
+            carboSouthEurope = carboSouthEurope + Number(carbo);
+          }
+      }
+    }
+    if (snscountry.includes(values[countryIndex])) {
+      let snscountryIndex = cntrindex(values[countryIndex]);
+      saltArr[snscountryIndex] = saltArr[snscountryIndex] + Number(values[saltIndex]);
+      sugarArr[snscountryIndex] = sugarArr[snscountryIndex] + Number(values[sugarIndex]);
+  }
 
     if (countryCheckforNorthEurope || countryCheckforCentralEurope || countryCheckforSouthEurope) {
         let fat = values[fatIndex];
         let protein = values[protienIndex];
         let carbo = values[carboIndex];
         // console.log(fat,'fat');
-        if (fat === '') {
+        if (!fat) {
             fat = 0;
         }
-        if (protein === '') {
+        if (!protein) {
             protein = 0;
         }
-        if (carbo === '') {
+        if (!carbo) {
             carbo = 0;
         }
         if (countryCheckforNorthEurope) {
             // console.log('fat',fat);
-            fatNorthEurope = fatNorthEurope + parseFloat(fat, 10);
-            proteinNorthEurope = proteinNorthEurope + parseFloat(protein, 10);
-            carboNorthEurope = carboNorthEurope + parseFloat(carbo, 10);
+            fatNorthEurope = fatNorthEurope + Number(fat);
+            proteinNorthEurope = proteinNorthEurope + Number(protein);
+            carboNorthEurope = carboNorthEurope + Number(carbo);
             countryCheckforNorthEurope = false;
         }
         if (countryCheckforCentralEurope) {
             // console.log('fat',fat);
-            fatCentralEurope = fatCentralEurope + parseFloat(fat, 10);
-            proteinCentralEurope = proteinCentralEurope + parseFloat(protein, 10);
-            carboCentralEurope = carboCentralEurope + parseFloat(carbo, 10);
+            fatCentralEurope = fatCentralEurope + Number(fat);
+            proteinCentralEurope = proteinCentralEurope + Number(protein);
+            carboCentralEurope = carboCentralEurope + Number(carbo);
             countryCheckforCentralEurope = false;
         }
         if (countryCheckforSouthEurope) {
-            fatSouthEurope = fatSouthEurope + parseFloat(fat, 10);
-            proteinSouthEurope = proteinSouthEurope + parseFloat(protein, 10);
-            carboSouthEurope = carboSouthEurope + parseFloat(carbo, 10);
+            fatSouthEurope = fatSouthEurope + Number(fat);
+            proteinSouthEurope = proteinSouthEurope + Number(protein);
+            carboSouthEurope = carboSouthEurope + Number(carbo);
             countryCheckforSouthEurope = false;
         }
     }

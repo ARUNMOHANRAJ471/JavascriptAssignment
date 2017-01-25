@@ -1,1 +1,16 @@
-[{"region":"North Europe","fat":6066.340000000004,"protein":3335.7989999999977,"carbohydrates":10175.960000000005},{"region":"Central Europe","fat":52883.74699999964,"protein":36242.90469999996,"carbohydrates":123176.11100000048},{"region":"South Europe","fat":4316.650099999995,"protein":1835.4660000000001,"carbohydrates":6709.7}]
+[{
+    "region": "North Europe",
+    "fat": 6295.140000000001,
+    "protein": 3467.9289999999983,
+    "carbohydrates": 11486.96000000001
+}, {
+    "region": "Central Europe",
+    "fat": 53819.94699999965,
+    "protein": 36627.20469999997,
+    "carbohydrates": 125867.01100000046
+}, {
+    "region": "South Europe",
+    "fat": 4408.9500999999955,
+    "protein": 1894.6660000000002,
+    "carbohydrates": 7004.4
+}]
