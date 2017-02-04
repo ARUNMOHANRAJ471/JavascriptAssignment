@@ -141,30 +141,30 @@ module.exports = (country) => {
             // assigning values for objects and pushing it in json array
             for (let i = 0; i < snscountry.length; i = i + 1) {
                 let obj = {};
-                obj.country = snscountry[i];
-                obj.sugar = sugar[i];
-                obj.salt = salt[i];
+                obj.countries = snscountry[i];
+                obj.sugars_100g = sugar[i];
+                obj.salt_100g = salt[i];
                 jsonArray.push(obj);
             }
             // assigning for objects of north,central and south europe and pushing it in json array
             let objNorthEurope = {
-                region: 'North Europe',
-                fat: fatNorthEurope,
-                protein: proteinNorthEurope,
-                carbohydrates: carboNorthEurope
+                countries: 'North Europe',
+                fat_100g: fatNorthEurope,
+                proteins_100g: proteinNorthEurope,
+                carbohydrates_100g: carboNorthEurope
             };
 
             let objCentralEurope = {
-                region: 'Central Europe',
-                fat: fatCentralEurope,
-                protein: proteinCentralEurope,
-                carbohydrates: carboCentralEurope
+                countries: 'Central Europe',
+                fat_100g: fatCentralEurope,
+                proteins_100g: proteinCentralEurope,
+                carbohydrates_100g: carboCentralEurope
             };
             let objSouthEurope = {
-                region: 'South Europe',
-                fat: fatSouthEurope,
-                protein: proteinSouthEurope,
-                carbohydrates: carboSouthEurope
+                countries: 'South Europe',
+                fat_100g: fatSouthEurope,
+                proteins_100g: proteinSouthEurope,
+                carbohydrates_100g: carboSouthEurope
             };
             jsonArray1.push(objNorthEurope);
             jsonArray1.push(objCentralEurope);
@@ -173,7 +173,6 @@ module.exports = (country) => {
             fs.writeFileSync('../outputdata/foodfacts.json', JSON.stringify(jsonArray));
             fs.writeFileSync('../outputdata/foodfacts1.json', JSON.stringify(jsonArray1));
         });
-
         return 'JSON written successfully';
     }
     return '';
